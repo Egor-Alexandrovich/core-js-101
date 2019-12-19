@@ -23,9 +23,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(...args) {
-  if (args.length === 0) { return function (m) { return m; }; }
-  return args.reduceRight((prev, curr) => (...a) => curr(prev(...a)));
+function getComposition(/* ...args */) {
+  // if (args.length === 0) { return function (m) { return m; }; }
+  // return args.reduceRight((prev, curr) => (...a) => curr(prev(...a)));
+  throw new Error('Not implemented');
 }
 
 
@@ -45,9 +46,10 @@ function getComposition(...args) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(exponent) {
-  const alw = function (a) { return a ** exponent; };
-  return alw;
+function getPowerFunction(/* exponent */) {
+  throw new Error('Not implemented');
+  // const alw = function (a) { return a ** exponent; };
+  // return alw;
 }
 
 
@@ -83,17 +85,18 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(func) {
-  const funct = func;
-  return function (...args) {
-    const key = JSON.stringify(args);
-    funct.memory = funct.memory || {};
-    if (key in funct.memory) {
-      return funct.memory[key];
-    }
-    funct.memory[key] = funct(...args);
-    return funct.memory[key];
-  };
+function memoize(/* func */) {
+  // const funct = func;
+  // return function (...args) {
+  //   const key = JSON.stringify(args);
+  //   funct.memory = funct.memory || {};
+  //   if (key in funct.memory) {
+  //     return funct.memory[key];
+  //   }
+  //   funct.memory[key] = funct(...args);
+  //   return funct.memory[key];
+  // };
+  throw new Error('Not implemented');
 }
 
 
