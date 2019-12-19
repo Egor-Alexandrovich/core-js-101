@@ -23,8 +23,9 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(...args) {
+  if (args.length === 0) { return function (m) { return m; }; }
+  return args.reduceRight((prev, curr) => (...a) => curr(prev(...a)));
 }
 
 
@@ -44,8 +45,9 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  const alw = function (a) { return a ** exponent; };
+  return alw;
 }
 
 
@@ -81,8 +83,17 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const funct = func;
+  return function (...args) {
+    const key = JSON.stringify(args);
+    funct.memory = funct.memory || {};
+    if (key in funct.memory) {
+      return funct.memory[key];
+    }
+    funct.memory[key] = funct(...args);
+    return funct.memory[key];
+  };
 }
 
 
@@ -131,6 +142,16 @@ function retry(/* func, attempts */) {
  */
 function logger(/* func, logFunc */) {
   throw new Error('Not implemented');
+  // const funct = func;
+  // return function (logFunc) {
+  //   const key = JSON.stringify(logFunc);
+  //   funct.memory = funct.memory || {};
+  //   if (key in funct.memory) {
+  //     return funct.memory[key];
+  //   }
+  //   funct.memory[key] = funct(logFunc);
+  //   return funct.memory[key];
+  // };
 }
 
 
