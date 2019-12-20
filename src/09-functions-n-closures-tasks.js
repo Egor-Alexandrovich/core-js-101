@@ -85,18 +85,18 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  // const funct = func;
-  // return function (...args) {
-  //   const key = JSON.stringify(args);
-  //   funct.memory = funct.memory || {};
-  //   if (key in funct.memory) {
-  //     return funct.memory[key];
-  //   }
-  //   funct.memory[key] = funct(...args);
-  //   return funct.memory[key];
-  // };
-  throw new Error('Not implemented');
+function memoize(func) {
+  const funct = func;
+  // eslint-disable-next-line func-names
+  return function (...args) {
+    const key = JSON.stringify(args);
+    funct.memory = funct.memory || {};
+    if (key in funct.memory) {
+      return funct.memory[key];
+    }
+    funct.memory[key] = funct(...args);
+    return funct.memory[key];
+  };
 }
 
 
