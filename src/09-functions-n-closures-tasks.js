@@ -23,10 +23,9 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* ...args */) {
-  // if (args.length === 0) { return function (m) { return m; }; }
-  // return args.reduceRight((prev, curr) => (...a) => curr(prev(...a)));
-  throw new Error('Not implemented');
+function getComposition(...args) {
+  if (args.length === 0) { return function b(m) { return m; }; }
+  return args.reduceRight((prev, curr) => (...a) => curr(prev(...a)));
 }
 
 
@@ -46,10 +45,9 @@ function getComposition(/* ...args */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
-  // const alw = function (a) { return a ** exponent; };
-  // return alw;
+function getPowerFunction(exponent) {
+  const alw = function b(a) { return a ** exponent; };
+  return alw;
 }
 
 
@@ -87,8 +85,7 @@ function getPolynom() {
  */
 function memoize(func) {
   const funct = func;
-  // eslint-disable-next-line func-names
-  return function (...args) {
+  return function b(...args) {
     const key = JSON.stringify(args);
     funct.memory = funct.memory || {};
     if (key in funct.memory) {
