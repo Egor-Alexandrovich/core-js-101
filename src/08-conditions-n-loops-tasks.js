@@ -146,6 +146,48 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(/* rect1, rect2 */) {
+  // const a = {
+  //   x: rect1.left,
+  //   y: rect1.top,
+  //   x1: rect1.width + rect1.left,
+  //   y1: rect1.height + rect1.top,
+  // };
+  // const b = {
+  //   x: rect2.left,
+  //   y: rect2.top,
+  //   x1: rect2.width + rect1.left,
+  //   y1: rect2.height + rect1.top,
+  // };
+  // return ((a.y < b.y1 || a.y1 > b.y) && (a.x1 > b.x || a.x < b.x1));
+  // return (
+  //   (
+  //     (
+  //       (a.x > b.x && a.x < b.x1) || (a.x1 > b.x && a.x1 < b.x1)
+  //     ) && (
+  //       (a.y > b.y && a.y < b.y1) || (a.y1 > b.y && a.y1 < b.y1)
+  //     )
+  //   ) || (
+  //     (
+  //       (b.x > a.x && b.x < a.x1) || (b.x1 > a.x && b.x1 < a.x1)
+  //     ) && (
+  //       (b.y > a.y && b.y < a.y1) || (b.y1 > a.y && b.y1 < a.y1)
+  //     )
+  //   )
+  // ) || (
+  //   (
+  //     (
+  //       (a.x > b.x && a.x < b.x1) || (a.x1 > b.x && a.x1 < b.x1)
+  //     ) && (
+  //       (b.y > a.y && b.y < a.y1) || (b.y1 > a.y && b.y1 < a.y1)
+  //     )
+  //   ) || (
+  //     (
+  //       (b.x > a.x && b.x < a.x1) || (b.x1 > a.x && b.x1 < a.x1)
+  //     ) && (
+  //       (a.y > b.y && a.y < b.y1) || (a.y1 > b.y && a.y1 < b.y1)
+  //     )
+  //   )
+  // );
   throw new Error('Not implemented');
 }
 
@@ -194,11 +236,30 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let stroke = str;
+  if (stroke === '') {
+    return null;
+  }
+  const firstLater = stroke[0];
+  if (firstLater === ' ') {
+    stroke = stroke.replace(firstLater, '');
+  } else {
+    stroke = stroke.replace(firstLater, '');
+    if (stroke.includes(firstLater)) {
+      let k;
+      while (k !== -1) {
+        k = stroke.indexOf(firstLater);
+        if (k !== -1) {
+          stroke = stroke.replace(firstLater, '');
+        }
+      }
+      return findFirstSingleChar(stroke);
+    }
+    return firstLater;
+  }
+  return findFirstSingleChar(stroke);
 }
-
-
 /**
  * Returns the string representation of math interval,
  * specified by two points and include / exclude flags.

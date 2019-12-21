@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* *******************************************************************************************
  *                                                                                           *
  * Plese read the following tutorial before implementing tasks:                              *
@@ -202,8 +203,14 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+  for (let index = 1; index <= height; index += 1) {
+    if (index === 1) { result = `┌${'─'.repeat(width - 2)}┐\n`; }
+    if (index > 1 && index < height) { result += `│${' '.repeat(width - 2)}│\n`; }
+    if (index === height) { result += `└${'─'.repeat(width - 2)}┘\n`; }
+  }
+  return result;
 }
 
 
@@ -223,8 +230,19 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const dict = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let res = '';
+  for (let index = 0; index < str.length; index += 1) {
+    if (dict.indexOf(str[index]) === -1) {
+      res += str[index];
+    } else if (dict.indexOf(str[index]) < 26) {
+      res += dict[(dict.indexOf(str[index]) + 13) % 26];
+    } else {
+      res += dict[((dict.indexOf(str[index]) + 13) % 26) + 26];
+    }
+  }
+  return res;
 }
 
 /**

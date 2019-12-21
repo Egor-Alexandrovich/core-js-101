@@ -145,6 +145,51 @@ const cssSelectorBuilder = {
   combine(/* selector1, combinator, selector2 */) {
     throw new Error('Not implemented');
   },
+  // stack: [],
+  // element(value) {
+  //   this.stack.push(value);
+  //   return this;
+  // },
+
+  // id(value) {
+  //   this.stack.push(`#${value}`);
+  //   return this;
+  // },
+
+  // class(value) {
+  //   this.stack.push(`.${value}`);
+  //   return this;
+  // },
+
+  // attr(value) {
+  //   this.stack.push(`[${value}]`);
+  //   return this;
+  // },
+
+  // pseudoClass(value) {
+  //   this.stack.push(`:${value}`);
+  //   return this;
+  // },
+
+  // pseudoElement(value) {
+  //   this.stack.push(`::${value}`);
+  //   return this;
+  // },
+
+  // combine(selector1, combinator, selector2) {
+  //   // eslint-disable-next-line no-unused-expressions
+  //   selector1();
+  //   // eslint-disable-next-line no-unused-expressions
+  //   selector2();
+  //   return this;
+  // },
+  // stringify() {
+  //   const result = this.stack.join('');
+  //   this.stack = [];
+  //   // eslint-disable-next-line no-console
+  //   console.log(result);
+  //   return result;
+  // },
 };
 
 
