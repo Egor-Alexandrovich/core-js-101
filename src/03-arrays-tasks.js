@@ -203,8 +203,13 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  let str = '';
+  // eslint-disable-next-line array-callback-return
+  arr.map((elem) => {
+    str += `${elem.join(',')}\n`;
+  });
+  return str.slice(0, str.length - 1);
 }
 
 /**
@@ -351,8 +356,23 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const myMap = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
+  function compare(a, b) {
+    return myMap[a] - myMap[b];
+  }
+  return arr.sort(compare);
 }
 
 /**
@@ -479,8 +499,16 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  let arr = new Array(n).fill([]);
+  arr = arr.map(() => new Array(n).fill(0));
+  arr.map((elem, index) => elem.map((element, ind) => {
+    if (index === ind) {
+      arr[index][ind] = 1;
+    }
+    return 0;
+  }));
+  return arr;
 }
 
 /**
@@ -555,8 +583,19 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+  array.map((elem) => {
+    if (map.get(keySelector(elem))) {
+      const mapVallueArr = map.get(keySelector(elem));
+      mapVallueArr.push(valueSelector(elem));
+      map.set(keySelector(elem), mapVallueArr);
+    } else {
+      map.set(keySelector(elem), [valueSelector(elem)]);
+    }
+    return 0;
+  });
+  return map;
 }
 
 
@@ -613,8 +652,18 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let arrLeft = [];
+  if (arr.length < 3) {
+    return arr.reverse();
+  }
+  if (arr.length % 2 === 0) {
+    arrLeft = arr.splice(arr.length / 2);
+    return arrLeft.concat(arr);
+  }
+  arrLeft = arr.splice((arr.length - 1) / 2);
+  arrLeft.push(arrLeft.shift());
+  return arrLeft.concat(arr);
 }
 
 

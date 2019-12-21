@@ -282,8 +282,20 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let str = '';
+  if (isStartIncluded) {
+    str += '[';
+  } else { str += '('; }
+  if (a < b) {
+    str += `${a}, ${b}`;
+  } else {
+    str += `${b}, ${a}`;
+  }
+  if (isEndIncluded) {
+    str += ']';
+  } else { str += ')'; }
+  return str;
 }
 
 
@@ -343,8 +355,20 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const strCode = String(ccn);
+  let sum = 0;
+  for (let i = 0; i < strCode.length; i += 1) {
+    let CreditCardNumber = parseInt(strCode[i], 10);
+    if ((strCode.length - i) % 2 === 0) {
+      CreditCardNumber *= 2;
+      if (CreditCardNumber > 9) {
+        CreditCardNumber -= 9;
+      }
+    }
+    sum += CreditCardNumber;
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -392,78 +416,77 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  // const bracketsConfig = [['(', ')'], ['[', ']'], ['{', '}'], ['<', '>']];
-  // const inputStack = str.split('');
-  // const bracketsStack = [];
-  // function topStack(stack) {
-  //   return stack[stack.length - 1];
-  // }
-  // function checkOpen(arrayConfig, str1) {
-  //   let a;
-  //   for (let i = 0; i <= arrayConfig.length - 1; i += 1) {
-  //     if (arrayConfig[i][0] === str1) {
-  //       a = true;
-  //       break;
-  //     } else { a = false; }
-  //   }
-  //   return a;
-  // }
-  // function checkClose(arrayConfig, str2) {
-  //   let a;
-  //   for (let i = 0; i <= arrayConfig.length - 1; i += 1) {
-  //     if (arrayConfig[i][0] === str2) {
-  //       // eslint-disable-next-line prefer-destructuring
-  //       a = arrayConfig[i][1];
-  //       break;
-  //     } else { a = false; }
-  //   }
-  //   return a;
-  // }
-  // function checkDouble(arrayConfig, str2) {
-  //   let a;
-  //   for (let i = 0; i <= arrayConfig.length - 1; i += 1) {
-  //     if (arrayConfig[i][0] === str2 && arrayConfig[i][1] === str2) {
-  //       a = true;
-  //       break;
-  //     } else { a = false; }
-  //   }
-  //   return a;
-  // }
-  // while (inputStack.length > 0) {
-  //   if (checkDouble(bracketsConfig, topStack(inputStack))) {
-  //     if (bracketsStack.length > 0) {
-  //       if (bracketsStack.some((brackets) => brackets === topStack(inputStack))) {
-  //         if (topStack(inputStack) === topStack(bracketsStack)) {
-  //           inputStack.pop();
-  //           bracketsStack.pop();
-  //         } else {
-  //           return false;
-  //         }
-  //       } else {
-  //         bracketsStack.push(inputStack.pop());
-  //       }
-  //     } else {
-  //       bracketsStack.push(inputStack.pop());
-  //     }
-  //   } else if (checkOpen(bracketsConfig, (topStack(inputStack)))) {
-  //     if (bracketsStack.length > 0) {
-  //       if (checkClose(bracketsConfig, topStack(inputStack)) === topStack(bracketsStack)) {
-  //         inputStack.pop();
-  //         bracketsStack.pop();
-  //       } else {
-  //         return false;
-  //       }
-  //     } else { return false; }
-  //   } else {
-  //     bracketsStack.push(inputStack.pop());
-  //   }
-  // }
-  // if (inputStack.length === 0 && bracketsStack.length === 0) {
-  //   return true;
-  // }
-  // return false;
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const bracketsConfig = [['(', ')'], ['[', ']'], ['{', '}'], ['<', '>']];
+  const inputStack = str.split('');
+  const bracketsStack = [];
+  function topStack(stack) {
+    return stack[stack.length - 1];
+  }
+  function checkOpen(arrayConfig, str1) {
+    let a;
+    for (let i = 0; i <= arrayConfig.length - 1; i += 1) {
+      if (arrayConfig[i][0] === str1) {
+        a = true;
+        break;
+      } else { a = false; }
+    }
+    return a;
+  }
+  function checkClose(arrayConfig, str2) {
+    let a;
+    for (let i = 0; i <= arrayConfig.length - 1; i += 1) {
+      if (arrayConfig[i][0] === str2) {
+        // eslint-disable-next-line prefer-destructuring
+        a = arrayConfig[i][1];
+        break;
+      } else { a = false; }
+    }
+    return a;
+  }
+  function checkDouble(arrayConfig, str2) {
+    let a;
+    for (let i = 0; i <= arrayConfig.length - 1; i += 1) {
+      if (arrayConfig[i][0] === str2 && arrayConfig[i][1] === str2) {
+        a = true;
+        break;
+      } else { a = false; }
+    }
+    return a;
+  }
+  while (inputStack.length > 0) {
+    if (checkDouble(bracketsConfig, topStack(inputStack))) {
+      if (bracketsStack.length > 0) {
+        if (bracketsStack.some((brackets) => brackets === topStack(inputStack))) {
+          if (topStack(inputStack) === topStack(bracketsStack)) {
+            inputStack.pop();
+            bracketsStack.pop();
+          } else {
+            return false;
+          }
+        } else {
+          bracketsStack.push(inputStack.pop());
+        }
+      } else {
+        bracketsStack.push(inputStack.pop());
+      }
+    } else if (checkOpen(bracketsConfig, (topStack(inputStack)))) {
+      if (bracketsStack.length > 0) {
+        if (checkClose(bracketsConfig, topStack(inputStack)) === topStack(bracketsStack)) {
+          inputStack.pop();
+          bracketsStack.pop();
+        } else {
+          return false;
+        }
+      } else { return false; }
+    } else {
+      bracketsStack.push(inputStack.pop());
+    }
+  }
+  if (inputStack.length === 0 && bracketsStack.length === 0) {
+    return true;
+  }
+  return false;
 }
 
 
